@@ -18,7 +18,7 @@ export default function Button({children, loading, ...rest}) {
 
 Button.protoTypes = {
   children: PropTypes.string.isRequired,
-  loadin: PropTypes.bool,
+  loading: PropTypes.bool,
 };
 
 Button.defaultProps = {
