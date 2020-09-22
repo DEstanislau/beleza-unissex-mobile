@@ -1,18 +1,29 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
 
-import Background from '~/components/Background';
-import {Container, Title} from './styles';
+import {
+  createStackNavigator,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
+
+import SelectProvider from './SelectProvider';
+import SelectDate from './SelectDate';
+import Confirm from './Confirm';
+
+const Stack = createStackNavigator();
 
 export default function Home() {
   return (
-    <>
-      <StatusBar backgroundColor="#63c2d1" />
-      <Background>
-        <Container>
-          <Title> Home </Title>
-        </Container>
-      </Background>
-    </>
+    <Stack.Navigator
+      initialRouteName="SelectProvider"
+      screenOptions={{
+        headerShown: false,
+        gestureEnabled: true,
+        gestureDirection: 'horizontal',
+        cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+      }}>
+      <Stack.Screen name="SelectProvider" component={SelectProvider} />
+      <Stack.Screen name="SelectDate" component={SelectDate} />
+      <Stack.Screen name="Confirm" component={Confirm} />
+    </Stack.Navigator>
   );
 }

@@ -14,9 +14,9 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
 import Home from '../pages/Home';
-import Search from '../pages/Search';
+// import Search from '../pages/Search';
 import Dashboard from '../pages/Dashboard';
-import Favorites from '../pages/Favorites';
+// import Favorites from '../pages/Favorites';
 import Profile from '../pages/Profile';
 
 import TabBar from '~/Routes/TabNavigation';
@@ -49,9 +49,9 @@ export default function Router() {
             keyboardHidesTabBar: false,
           }}>
           <TabNav.Screen name={'Home'} component={Home} />
-          <TabNav.Screen name={'Search'} component={Search} />
+          {/* <TabNav.Screen name={'Search'} component={Search} /> */}
           <TabNav.Screen name={'Dashboard'} component={Dashboard} />
-          <TabNav.Screen name={'Favorites'} component={Favorites} />
+          {/* <TabNav.Screen name={'Favorites'} component={Favorites} /> */}
           <TabNav.Screen name={'Profile'} component={Profile} />
         </TabNav.Navigator>
       )}

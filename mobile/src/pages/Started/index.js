@@ -1,4 +1,4 @@
-import React, {forwardRef} from 'react';
+import React from 'react';
 
 import Icons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';

@@ -5,6 +5,8 @@ export const Container = styled.View`
   padding: 20px;
   border-radius: 4px;
   border-top-right-radius: 50px;
+  border-top-left-radius: 50px;
+  border-bottom-left-radius: 50px;
   background: #fff;
 
   display: flex;

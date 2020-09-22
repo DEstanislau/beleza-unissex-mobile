@@ -23,28 +23,28 @@ export default function TabNavigation({navigation, state}) {
           fill="#FFFFFF"
         />
       </TabItem>
-      <TabItem onPress={() => goTo('Search')}>
+      {/* <TabItem onPress={() => goTo('Search')}>
         <SearchIcon
           style={{opacity: state.index === 1 ? 1 : 0.5}}
           width="24"
           height="24"
           fill="#FFFFFF"
         />
-      </TabItem>
+      </TabItem> */}
       <TabItemCenter onPress={() => goTo('Dashboard')}>
         <TodayIcon width="32" height="32" fill="#4EADBE" />
       </TabItemCenter>
-      <TabItem onPress={() => goTo('Favorites')}>
+      {/* <TabItem onPress={() => goTo('Favorites')}>
         <FavoriteIcon
           style={{opacity: state.index === 3 ? 1 : 0.5}}
           width="24"
           height="24"
           fill="#FFFFFF"
         />
-      </TabItem>
+      </TabItem> */}
       <TabItem onPress={() => goTo('Profile')}>
         <AccountIcon
-          style={{opacity: state.index === 4 ? 1 : 0.5}}
+          style={{opacity: state.index === 2 ? 1 : 0.5}}
           width="24"
           height="24"
           fill="#FFFFFF"

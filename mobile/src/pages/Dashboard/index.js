@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import api from '~/services/api';
 import {StatusBar} from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 
 import Background from '~/components/Background';
 import Appointment from '~/components/Appointment';
@@ -11,17 +12,21 @@ export default function Dashboard() {
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const isFocused = useIsFocused();
+
+  async function loadAppointments() {
+    const response = await api.get('appointments');
+
+    setAppointments(response.data);
+    setLoading(false);
+  }
+
   useEffect(() => {
     setLoading(true);
-    async function loadAppointments() {
-      const response = await api.get('appointments');
-
-      setAppointments(response.data);
-      setLoading(false);
+    if (isFocused) {
+      loadAppointments();
     }
-
-    loadAppointments();
-  }, []);
+  }, [isFocused]);
 
   async function handleCancel(id) {
     const response = await api.delete(`appointments/${id}`);
@@ -36,6 +41,8 @@ export default function Dashboard() {
           : appointment,
       ),
     );
+
+    loadAppointments();
   }
 
   return (

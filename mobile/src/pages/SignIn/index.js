@@ -9,7 +9,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import * as Animatable from 'react-native-animatable';
 import {Text, StatusBar, TouchableOpacity} from 'react-native';
-import Logo from '~/assets/img/logo.svg';
 
 import {
   Container,
