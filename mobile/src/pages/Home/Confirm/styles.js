@@ -24,7 +24,6 @@ export const Title = styled.Text`
 export const Body = styled.View`
   flex: 1;
   padding: 0 30px;
-  justify-content: center;
   align-items: center;
 `;
 
@@ -51,4 +50,33 @@ export const SubmitButton = styled(Button)`
   align-self: stretch;
   margin-top: 20px;
   background-color: #268596;
+`;
+
+export const ProductArea = styled.View`
+  margin: 30px 0;
+  background-color: #4eadbe;
+  border-radius: 10px;
+  padding: 10px 15px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ProductName = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  border-right-width: 1px;
+  border-right-color: #fff;
+  margin-right: 20px;
+  padding-right: 10px;
+`;
+
+export const ProductPrice = styled.Text`
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+`;
+
+export const Info = styled.View`
+  flex-direction: row;
 `;

@@ -4,9 +4,6 @@ export const Container = styled.View`
   margin-bottom: 15px;
   padding: 20px;
   border-radius: 4px;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
   background: #fff;
 
   display: flex;
@@ -22,10 +19,12 @@ export const Left = styled.View`
   align-items: center;
 `;
 
+export const Right = styled.View``;
+
 export const Avatar = styled.Image`
-  width: 50px;
-  height: 50px;
-  border-radius: 25px;
+  width: 88px;
+  height: 88px;
+  border-radius: 40px;
 `;
 
 export const Info = styled.View`
@@ -33,12 +32,28 @@ export const Info = styled.View`
 `;
 
 export const Name = styled.Text`
+  min-width: 183px;
+  max-width: 183px;
   font-weight: bold;
-  font-size: 14px;
+  font-size: 12px;
 `;
 
 export const Time = styled.Text`
   color: #999;
-  font-size: 13px;
+  font-size: 11px;
   margin-top: 4px;
+`;
+
+export const SeeProfile = styled.View`
+  width: 150px;
+  height: 26px;
+  border: 1px solid #4eadbe;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SeeProfileText = styled.Text`
+  font-size: 13px;
+  color: #268596;
 `;

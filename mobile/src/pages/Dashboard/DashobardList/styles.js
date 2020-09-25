@@ -22,3 +22,23 @@ export const Loading = styled.ActivityIndicator`
   flex: 1;
   align-self: center;
 `;
+
+export const ProductItem = styled.View`
+  flex-direction: row;
+  margin: 0px 30px 20px 30px;
+`;
+
+export const ProductInfo = styled.View`
+  flex: 1;
+`;
+
+export const ProductName = styled.Text`
+  font-size: 16px;
+  font-weight: bold;
+  color: #268596;
+`;
+
+export const ProductPrice = styled.Text`
+  font-size: 14px;
+  color: #268596;
+`;

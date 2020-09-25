@@ -16,7 +16,7 @@ export default function SelectDate({route, navigation}) {
   const [dateTime, setDateTime] = useState([]);
 
   const {provider} = route.params;
-  // const provider = navigation.getParam('provider');
+  const {product} = route.params;
 
   useEffect(() => {
     async function loadAvailable() {
@@ -36,6 +36,7 @@ export default function SelectDate({route, navigation}) {
     navigation.navigate('Confirm', {
       provider,
       value,
+      product,
     });
   }
 

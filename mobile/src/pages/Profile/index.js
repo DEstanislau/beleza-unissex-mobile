@@ -67,6 +67,7 @@ export default function Profile() {
             <FormInput
               icon="person-outline"
               autoCorrect={false}
+              maxLength={24}
               autoCapitalize="none"
               placeholder="Nome Completo"
               value={name}
@@ -90,6 +91,7 @@ export default function Profile() {
 
             <FormInput
               icon="face"
+              editable={false}
               autoCorrect={false}
               autoCapitalize="none"
               placeholder="CPF"

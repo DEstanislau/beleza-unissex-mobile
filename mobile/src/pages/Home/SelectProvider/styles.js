@@ -29,8 +29,8 @@ export const TextState = styled.Text`
   align-self: center;
 `;
 
-export const Rect = styled.TouchableOpacity`
-  margin-bottom: 15px;
+export const Rect = styled(RectButton)`
+  /* margin-bottom: 15px;
   padding: 20px;
   border-radius: 4px;
   border-top-right-radius: 50px;
@@ -41,7 +41,13 @@ export const Rect = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; */
+
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 15px;
+  flex-direction: row;
 `;
 
 export const Title = styled.Text`
@@ -89,16 +95,37 @@ export const Left = styled.View`
 `;
 
 export const Avatar = styled.Image`
-  width: 50px;
+  /* width: 50px;
   height: 50px;
-  border-radius: 25px;
+  border-radius: 25px; */
+
+  width: 88px;
+  height: 88px;
+  border-radius: 40px;
 `;
 
 export const Info = styled.View`
-  margin-left: 15px;
+  margin-left: 20px;
+  justify-content: space-between;
 `;
 
 export const Name = styled.Text`
   font-weight: bold;
   font-size: 14px;
 `;
+
+export const SeeProfile = styled.View`
+  width: 85px;
+  height: 26px;
+  border: 1px solid #4eadbe;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const SeeProfileText = styled.Text`
+  font-size: 13px;
+  color: #268596;
+`;
+
+export const Scroller = styled.ScrollView``;

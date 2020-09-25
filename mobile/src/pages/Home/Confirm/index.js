@@ -4,9 +4,10 @@ import Background from '~/components/Background';
 import Icon from 'react-native-vector-icons/Feather';
 import {CommonActions} from '@react-navigation/native';
 
-import {formatRelative, parseISO} from 'date-fns';
+import {formatRelative, parseISO, subHours} from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import {TouchableOpacity, View} from 'react-native';
+
+import {TouchableOpacity, View, Text} from 'react-native';
 import api from '~/services/api';
 
 import {
@@ -18,11 +19,16 @@ import {
   Name,
   Time,
   SubmitButton,
+  ProductName,
+  ProductArea,
+  Info,
+  ProductPrice,
 } from './styles';
 
 export default function Confirm({route, navigation}) {
   const {provider} = route.params;
   const {value} = route.params;
+  const {product} = route.params;
 
   const timeFormatted = useMemo(
     () => formatRelative(parseISO(value), new Date(), {locale: pt}),
@@ -33,6 +39,7 @@ export default function Confirm({route, navigation}) {
     await api.post('appointments', {
       provider_id: provider.id,
       date: value,
+      product_id: product.id,
     });
 
     navigation.dispatch(
@@ -46,7 +53,7 @@ export default function Confirm({route, navigation}) {
       }),
     );
 
-    navigation.navigate('Dashboard');
+    navigation.navigate('DashboardList');
   }
   return (
     <Background>
@@ -64,6 +71,21 @@ export default function Confirm({route, navigation}) {
           <View />
         </Header>
         <Body>
+          <ProductArea>
+            <Text
+              style={{
+                fontSize: 20,
+                fontWeight: 'bold',
+                color: '#ffffff',
+                marginBottom: 20,
+              }}>
+              Serviço
+            </Text>
+            <Info>
+              <ProductName> {product.name_product} </ProductName>
+              <ProductPrice> R${product.price.toFixed(2)} </ProductPrice>
+            </Info>
+          </ProductArea>
           <Avatar
             source={{
               uri: provider.avatar.url

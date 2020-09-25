@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {StatusBar, Text, TouchableOpacity} from 'react-native';
+import {StatusBar, RefreshControl} from 'react-native';
+
+import Stars from '~/components/Stars';
 
 import api from '~/services/api';
 import {stateLocale} from './utils';
@@ -7,8 +9,8 @@ import {stateLocale} from './utils';
 import Background from '~/components/Background';
 import {
   Container,
-  ContainerList,
-  Left,
+  // ContainerList,
+  // Left,
   SearchInput,
   SearchForm,
   List,
@@ -21,6 +23,9 @@ import {
   TextState,
   ButtonFilter,
   Rect,
+  SeeProfile,
+  SeeProfileText,
+  Scroller,
 } from './styles';
 
 export default function SelectProvider({navigation}) {
@@ -28,29 +33,39 @@ export default function SelectProvider({navigation}) {
   // const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pickerData, setPickerData] = useState(stateLocale.estados);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function loadProviders() {
+    const response = await api.get('providers');
+    // const responseProducts = await api.get('productsm');
+    setProviders(response.data);
+    // setProducts(responseProducts.data);
+    setLoading(false);
+  }
 
   useEffect(() => {
     setLoading(true);
-    async function loadProviders() {
-      const response = await api.get('providers');
-      // const responseProducts = await api.get('productsm');
-      setProviders(response.data);
-      // setProducts(responseProducts.data);
-      setLoading(false);
-    }
-
     loadProviders();
   }, []);
+
+  const onRefresh = () => {
+    setRefreshing(false);
+    loadProviders();
+  };
 
   return (
     <>
       <StatusBar backgroundColor="#63c2d1" />
       <Background>
         <Container>
-          <SearchForm>
-            <SearchInput icon="search" placeholder="Busque pelo nome" />
-          </SearchForm>
-
+          <Scroller
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }>
+            <SearchForm>
+              <SearchInput icon="search" placeholder="Busque pelo nome" />
+            </SearchForm>
+          </Scroller>
           <FieldFilter horizontal={true} showsHorizontalScrollIndicator={false}>
             {pickerData.map(item => (
               <ButtonFilter key={item.sigla} onPress={() => {}}>
@@ -92,32 +107,26 @@ export default function SelectProvider({navigation}) {
             renderItem={({item: provider}) => (
               <Rect
                 onPress={() =>
-                  navigation.navigate('SelectDate', {
+                  navigation.navigate('Details', {
                     provider,
                   })
                 }>
-                <Left>
-                  <Avatar
-                    source={{
-                      uri: provider.avatar.url
-                        ? provider.avatar.url
-                        : `https://api.adorable.io/avatar/50/${
-                            provider.name
-                          }.png`,
-                    }}
-                  />
-                </Left>
+                <Avatar
+                  source={{
+                    uri: provider.avatar.url
+                      ? provider.avatar.url
+                      : `https://api.adorable.io/avatar/50/${
+                          provider.name
+                        }.png`,
+                  }}
+                />
+
                 <Info>
-                  <Name> {provider.name} </Name>
-                  {/* <Name> {item.city} </Name>
-                    <Name> {item.uf} </Name>
-                    <Text> Serviços: </Text>
-                    {products.map(
-                      itemPro =>
-                        itemPro.provider.id === item.id && (
-                          <Text>{itemPro.name_product}</Text>
-                        ),
-                    )} */}
+                  <Name> {provider.shop_name} </Name>
+                  <Stars stars={3} showNumber={true} />
+                  <SeeProfile>
+                    <SeeProfileText> Ver Perfil </SeeProfileText>
+                  </SeeProfile>
                 </Info>
               </Rect>
             )}

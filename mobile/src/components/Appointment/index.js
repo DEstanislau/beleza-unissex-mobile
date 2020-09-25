@@ -3,8 +3,19 @@ import React, {useMemo} from 'react';
 import {parseISO, formatRelative} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
-import {Container, Left, Avatar, Info, Name, Time} from './styles';
-import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+
+import {
+  Container,
+  Left,
+  Avatar,
+  Info,
+  Name,
+  Time,
+  SeeProfile,
+  SeeProfileText,
+} from './styles';
+import {TouchableOpacity, View} from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -15,6 +26,8 @@ export default function Appointment({data, onCancel}) {
       addSuffix: true,
     });
   }, [data.date]);
+
+  const navigation = useNavigation();
 
   return (
     <Container past={data.past}>
@@ -30,14 +43,44 @@ export default function Appointment({data, onCancel}) {
         <Info>
           <Name> {data.provider.name} </Name>
           <Time> {dateParsed} </Time>
+          <SeeProfile style={{marginTop: 10}}>
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate('DashboardDetails', {
+                  appointment: data,
+                })
+              }>
+              <SeeProfileText> Ver Detalhes </SeeProfileText>
+            </TouchableOpacity>
+          </SeeProfile>
         </Info>
-      </Left>
 
-      {data.cancelable && !data.canceled_at && (
-        <TouchableOpacity onPress={onCancel}>
-          <Icon name="event-busy" size={20} color="#f64c75" />
-        </TouchableOpacity>
-      )}
+        {data.cancelable && !data.canceled_at && (
+          <View style={{alignSelf: 'flex-end'}}>
+            <TouchableOpacity
+              style={{
+                marginTop: 20,
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+              }}
+              onPress={onCancel}>
+              <View
+                style={{
+                  backgroundColor: '#f64c75',
+                  height: 45,
+                  width: 45,
+                  borderRadius: 23,
+                  borderWidth: 2,
+                  borderColor: '#ffffffff',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Icon name="event-busy" size={30} color="#ffffff" />
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
+      </Left>
     </Container>
   );
 }

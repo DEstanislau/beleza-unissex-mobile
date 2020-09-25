@@ -6,6 +6,7 @@ import {
 } from '@react-navigation/stack';
 
 import SelectProvider from './SelectProvider';
+import Details from './Details';
 import SelectDate from './SelectDate';
 import Confirm from './Confirm';
 
@@ -22,6 +23,7 @@ export default function Home() {
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       <Stack.Screen name="SelectProvider" component={SelectProvider} />
+      <Stack.Screen name="Details" component={Details} />
       <Stack.Screen name="SelectDate" component={SelectDate} />
       <Stack.Screen name="Confirm" component={Confirm} />
     </Stack.Navigator>
