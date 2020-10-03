@@ -3,7 +3,6 @@ import React, {useState, useEffect, useRef} from 'react';
 import Background from '~/components/Background';
 import Stars from '~/components/Stars';
 
-import ModalLocation from '~/components/ModalLocation';
 import {Modalize} from 'react-native-modalize';
 
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
@@ -16,7 +15,7 @@ import api from '~/services/api';
 
 import Icon from 'react-native-vector-icons/Feather';
 
-import {TouchableOpacity, View, Linking, Text} from 'react-native';
+import {TouchableOpacity, View, Linking} from 'react-native';
 
 import {
   Container,
@@ -136,14 +135,21 @@ export default function Details({route, navigation}) {
           <InfoArea>
             <Avatar
               source={{
-                uri: provider.avatar.url
+                uri: provider.avatar
                   ? provider.avatar.url
                   : `https://api.adorable.io/avatar/50/${provider.name}.png`,
               }}
             />
             <Info>
               <Name> {provider.name} </Name>
-              <Stars stars={3} showNumber={true} />
+              <Stars
+                stars={
+                  provider.rating === 0 ? 'Não Há Avaliações' : provider.rating
+                }
+                showNumber={true}
+                wd={18}
+                hg={18}
+              />
             </Info>
             <IconArea>
               <TouchableOpacity onPress={onOpen}>

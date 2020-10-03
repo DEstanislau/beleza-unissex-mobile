@@ -16,11 +16,12 @@ import {
   LogoutButton,
 } from './styles';
 
-import {ScrollView} from 'react-native';
+import {ScrollView, Text, ActivityIndicator} from 'react-native';
 
 export default function Profile() {
   const dispatch = useDispatch();
   const profile = useSelector(state => state.user.profile);
+  const loading = useSelector(state => state.auth.loading);
 
   const [name, setName] = useState(profile.name);
   const [email, setEmail] = useState(profile.email);
@@ -138,8 +139,11 @@ export default function Profile() {
             />
 
             <SubmitButton onPress={handleSubmit}>
-              {' '}
-              Atualizar Perfil{' '}
+              {loading ? (
+                <ActivityIndicator size="small" color="#fff" />
+              ) : (
+                <Text>Atualizar Perfil</Text>
+              )}
             </SubmitButton>
 
             <LogoutButton onPress={handleLogout}> Sair </LogoutButton>

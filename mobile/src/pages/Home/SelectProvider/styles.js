@@ -11,7 +11,7 @@ export const ButtonFilter = styled.View`
   align-items: center;
   border: 1px;
   border-radius: 25px;
-  margin: 0 5px 0 5px;
+  margin: 0 5px 25px 5px;
   background-color: white;
   width: 50px;
   height: 50px;
@@ -30,19 +30,6 @@ export const TextState = styled.Text`
 `;
 
 export const Rect = styled(RectButton)`
-  /* margin-bottom: 15px;
-  padding: 20px;
-  border-radius: 4px;
-  border-top-right-radius: 50px;
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
-  background: #fff;
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between; */
-
   background-color: #ffffff;
   margin-bottom: 20px;
   border-radius: 20px;
@@ -60,28 +47,29 @@ export const Title = styled.Text`
 
 export const SearchForm = styled.View`
   align-self: stretch;
-  margin-top: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 `;
 
 export const SearchInput = styled(Input)`
-  margin-bottom: 10px;
+  margin: 20px 20px 0 20px;
   background: #ffffff;
   font-size: 16px;
   color: #333;
   padding: 0px 20px;
-  margin: 20px;
 `;
 
 export const FieldFilter = styled.ScrollView`
-  margin-left: 5px;
-  margin-bottom: 20px;
+  margin: 10px 0 0 15px;
   flex-direction: row;
 `;
 
 export const List = styled.FlatList.attrs({
   showsVerticalScrollIndicator: false,
   contentContainerStyle: {padding: 30},
-})``;
+})`
+  margin-bottom: 160px;
+`;
 
 export const Loading = styled.ActivityIndicator`
   flex: 1;
@@ -101,7 +89,7 @@ export const Avatar = styled.Image`
 
   width: 88px;
   height: 88px;
-  border-radius: 40px;
+  border-radius: 44px;
 `;
 
 export const Info = styled.View`
@@ -128,4 +116,6 @@ export const SeeProfileText = styled.Text`
   color: #268596;
 `;
 
-export const Scroller = styled.ScrollView``;
+export const Scroller = styled.ScrollView`
+  height: 110px;
+`;

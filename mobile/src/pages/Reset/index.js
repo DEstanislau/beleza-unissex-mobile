@@ -1,19 +1,14 @@
 import React, {useRef, useState} from 'react';
 
 import {useDispatch, useSelector} from 'react-redux';
-import {signInRequest} from '~/store/modules/auth/actions';
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import Feather from 'react-native-vector-icons/Feather';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import * as Animatable from 'react-native-animatable';
-import {
-  Text,
-  StatusBar,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {Text, StatusBar, ActivityIndicator} from 'react-native';
+
+import {resetPassword} from '~/store/modules/auth/actions';
 
 import {
   Container,
@@ -33,22 +28,24 @@ const AnimatedWelcome = Animatable.createAnimatableComponent(Welcome);
 
 export default function SignIn({navigation}) {
   const dispatch = useDispatch();
-  const passwordRef = useRef();
+  const identifierRef = useRef();
 
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [identifier, setIdentifier] = useState('');
 
   const loading = useSelector(state => state.auth.loading);
 
   function handleSubmit() {
-    dispatch(signInRequest(email, password));
+    dispatch(resetPassword(identifier, email));
+    setEmail('');
+    setIdentifier('');
   }
 
   const [dataEmail1, setDataEmail1] = useState({
     checkEmail1: false,
   });
-  const [dataPass1, setDataPass1] = useState({
-    checkPass1: false,
+  const [dataIdentifier1, setDataIdentifier1] = useState({
+    checkIdentifier1: false,
   });
 
   function changeEmail1(val) {
@@ -63,16 +60,16 @@ export default function SignIn({navigation}) {
     }
   }
 
-  function changePass() {
-    setDataPass1({
-      checkPass1: true,
-    });
-  }
-
-  function updatePass() {
-    setDataPass1({
-      checkPass1: !dataPass1.checkPass1,
-    });
+  function changeIdentifier1(val) {
+    if (val.length != 0) {
+      setDataIdentifier1({
+        checkIdentifier1: true,
+      });
+    } else {
+      setDataIdentifier1({
+        checkIdentifier1: false,
+      });
+    }
   }
 
   return (
@@ -80,7 +77,7 @@ export default function SignIn({navigation}) {
       <StatusBar backgroundColor="#63c2d1" barStyle="light-content" />
       <Header>
         <AnimatedWelcome useNativeDriver animation="fadeIn" duration={1500}>
-          Bem Vindo (a)
+          Recupere Sua Senha
         </AnimatedWelcome>
       </Header>
       <AnimatedBody useNativeDriver animation="fadeInUpBig">
@@ -103,7 +100,7 @@ export default function SignIn({navigation}) {
               changeEmail1(val);
               setEmail(val);
             }}
-            onSubmitEditing={() => passwordRef.current.focus()}
+            onSubmitEditing={() => identifierRef.current.focus()}
           />
 
           {dataEmail1.checkEmail1 ? (
@@ -113,35 +110,33 @@ export default function SignIn({navigation}) {
           ) : null}
         </Form>
 
-        <TitleForm style={{marginTop: 35}}> Password </TitleForm>
+        <TitleForm style={{marginTop: 35}}> CPF </TitleForm>
         <Form>
-          <FontAwesome
+          <MaterialIcon
             style={{marginLeft: 5}}
-            name="lock"
+            name="face"
             color="#01ab9d"
             size={20}
           />
           <FormInput
-            secureTextEntry={dataPass1.checkPass1 ? true : false}
-            placeholder="Insira sua Senha"
-            value={password}
+            placeholder="Insira seu CPF"
+            value={identifier}
             autoCorrect={false}
             autoCapitalize="none"
             onChangeText={val => {
-              changePass(val);
-              setPassword(val);
+              changeIdentifier1(val);
+              setIdentifier(val);
             }}
-            ref={passwordRef}
+            ref={identifierRef}
             returnKeyType="send"
             onSubmitEditing={handleSubmit}
           />
-          <TouchableOpacity onPress={updatePass}>
-            {dataPass1.checkPass1 ? (
-              <Feather name="eye-off" color="grey" size={20} />
-            ) : (
-              <Feather name="eye" color="black" size={20} />
-            )}
-          </TouchableOpacity>
+
+          {dataIdentifier1.checkIdentifier1 ? (
+            <Animatable.View useNativeDriver animation="bounceIn">
+              <Feather name="check-circle" color="green" size={20} />
+            </Animatable.View>
+          ) : null}
         </Form>
 
         <GroupButton>
@@ -151,29 +146,17 @@ export default function SignIn({navigation}) {
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
                 <Text style={{fontSize: 18, fontWeight: 'bold', color: '#fff'}}>
-                  Login
+                  Recuperar
                 </Text>
               )}
             </Linear>
           </ButtonSignUp>
-          <ButtonSignUp onPress={() => navigation.navigate('SignUp')}>
+          <ButtonSignUp onPress={() => navigation.navigate('SignIn')}>
             <Text style={{fontSize: 18, fontWeight: 'bold', color: '#01ab9d'}}>
               {' '}
-              Inscreva-se{' '}
+              Voltar{' '}
             </Text>
           </ButtonSignUp>
-          <TouchableOpacity onPress={() => navigation.navigate('Reset')}>
-            <Text
-              style={{
-                fontSize: 15,
-                marginTop: 15,
-                color: '#333333',
-                fontWeight: 'bold',
-              }}>
-              {' '}
-              Esqueceu sua Senha?
-            </Text>
-          </TouchableOpacity>
         </GroupButton>
       </AnimatedBody>
     </Container>

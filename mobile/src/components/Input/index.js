@@ -8,7 +8,6 @@ function Input({style, icon, ...rest}, ref) {
   return (
     <Container style={style}>
       {icon && <Icon name={icon} size={20} color="black" />}
-      {/* color="rgba(255, 255, 255, 0.6)" */}
       <TInput {...rest} ref={ref} />
     </Container>
   );

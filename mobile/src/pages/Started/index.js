@@ -25,8 +25,8 @@ export default function Started({navigation}) {
       </AnimatedHeader>
       <AnimatedBody useNativeDriver animation="fadeInUpBig">
         <Title>Quer ficar bem na foto?</Title>
-        <Text style={{fontSize: 15, marginTop: 5}}>
-          Comece já fazendo Login :)
+        <Text style={{fontSize: 18, marginTop: 5}}>
+          Encontre aqui o melhor lugar para dar um UP no visual!
         </Text>
         <GroupButton>
           <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>

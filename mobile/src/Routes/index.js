@@ -12,6 +12,7 @@ import {useSelector} from 'react-redux';
 import Started from '../pages/Started';
 import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
+import Reset from '../pages/Reset';
 
 import Home from '../pages/Home';
 // import Search from '../pages/Search';
@@ -41,6 +42,7 @@ export default function Router() {
           <Stack.Screen name="Started" component={Started} />
           <Stack.Screen name="SignIn" component={SignIn} />
           <Stack.Screen name="SignUp" component={SignUp} />
+          <Stack.Screen name="Reset" component={Reset} />
         </Stack.Navigator>
       ) : (
         <TabNav.Navigator

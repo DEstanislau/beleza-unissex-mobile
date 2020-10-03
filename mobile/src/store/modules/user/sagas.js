@@ -1,5 +1,4 @@
 import {takeLatest, call, put, all} from 'redux-saga/effects';
-import {Alert} from 'react-native';
 
 import api from '~/services/api';
 
@@ -37,11 +36,11 @@ export function* updateProfile({payload}) {
 
     const response = yield call(api.put, 'users', profile);
 
-    Alert.alert('Tudo Certo!', 'Perfil atualizado com sucesso!');
+    toast.show('Perfil Atualizado com Sucesso!', {type: 'success'});
 
     yield put(updateProfileSuccess(response.data));
   } catch (err) {
-    Alert.alert('Erro ao atualizar perfil', 'Verifique seus dados');
+    toast.show('Erro ao atualizar perfil');
 
     yield put(updateProfilefailure());
   }

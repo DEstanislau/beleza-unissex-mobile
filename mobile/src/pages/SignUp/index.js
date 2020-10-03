@@ -1,6 +1,6 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {signUpRequest} from '~/store/modules/auth/actions';
 
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
@@ -36,6 +36,10 @@ export default function SignUp({navigation}) {
   const emailRef = useRef();
   const identifierRef = useRef();
   const passwordRef = useRef();
+
+  const loading = useSelector(state => state.auth.loading);
+
+  useEffect(() => {}, []);
 
   function handleSubmit() {
     dispatch(signUpRequest(name, identifier, email, password));
@@ -229,9 +233,14 @@ export default function SignUp({navigation}) {
           <GroupButton>
             <ButtonSignUp onPress={handleSubmit}>
               <Linear>
-                <Text style={{fontSize: 18, fontWeight: 'bold', color: '#fff'}}>
-                  Inscrever-se
-                </Text>
+                {loading ? (
+                  <ActivityIndicator size="small" color="#fff" />
+                ) : (
+                  <Text
+                    style={{fontSize: 18, fontWeight: 'bold', color: '#fff'}}>
+                    Inscrever-se
+                  </Text>
+                )}
               </Linear>
             </ButtonSignUp>
 

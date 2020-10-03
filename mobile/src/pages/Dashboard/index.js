@@ -5,7 +5,7 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 
-import DashboardList from './DashobardList';
+import DashboardList from './DashboardList';
 import DashboardDetails from './DashboardDetails';
 
 const Stack = createStackNavigator();

@@ -1,4 +1,8 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState, useEffect} from 'react';
+
+import {AirbnbRating} from 'react-native-ratings';
+
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 import Background from '~/components/Background';
 import Stars from '~/components/Stars';
@@ -15,7 +19,7 @@ import IconPhone from '~/assets/img/iconPhone.svg';
 
 import Icon from 'react-native-vector-icons/Feather';
 
-import {TouchableOpacity, View, Linking} from 'react-native';
+import {TouchableOpacity, View, Linking, Alert, Text} from 'react-native';
 
 import {
   Container,
@@ -38,12 +42,22 @@ import {
   ModalText,
   IconArea,
   GroupButton,
+  RatingArea,
 } from './styles';
+import api from '~/services/api';
+import {useSelector} from 'react-redux';
 
-export default function Details({route, navigation}) {
-  const modalizeRef = useRef(null);
-
+export default function DashboardDetails({route, navigation}) {
   const {appointment} = route.params;
+
+  const disabled = useSelector(state => state.user.disabled);
+
+  const [stars, setStars] = useState(0);
+  const [posRating, setPosRating] = useState(false);
+  const [posConfirmRating, setPosConfirmRating] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
+
+  const modalizeRef = useRef(null);
 
   const subject = 'App Barbearia';
 
@@ -108,6 +122,39 @@ export default function Details({route, navigation}) {
           </ModalArea>
         </Modalize>
 
+        <AwesomeAlert
+          show={showAlert}
+          showProgress={false}
+          title="Confirme Sua Escolha"
+          message="Não será possível alterá-la futuramente."
+          cancelText="Voltar"
+          confirmText="Confirmar"
+          confirmButtonColor="#DD6B55"
+          closeOnTouchOutside={false}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          onCancelPressed={() => {
+            setShowAlert(false);
+          }}
+          onConfirmPressed={async () => {
+            try {
+              await api.put(
+                `ratings/${appointment.provider.id}/${appointment.id}`,
+                {
+                  rating_appointment: stars,
+                },
+              );
+              setPosConfirmRating(true);
+              toast.show('Avaliação Concluída!', {type: 'success'});
+              setShowAlert(false);
+            } catch (err) {
+              toast.show('Avaliação Não Concluída', {type: 'danger'});
+              setShowAlert(false);
+            }
+          }}
+        />
+
         <Header>
           <TouchableOpacity
             onPress={() => navigation.navigate('DashboardList')}>
@@ -125,7 +172,7 @@ export default function Details({route, navigation}) {
           <InfoArea>
             <Avatar
               source={{
-                uri: appointment.provider.avatar.url
+                uri: appointment.provider.avatar
                   ? appointment.provider.avatar.url
                   : `https://api.adorable.io/avatar/50/${
                       appointment.provider.name
@@ -134,7 +181,16 @@ export default function Details({route, navigation}) {
             />
             <Info>
               <Name> {appointment.provider.name} </Name>
-              <Stars stars={3} showNumber={true} />
+              <Stars
+                stars={
+                  appointment.provider.rating === 0
+                    ? 'Não Há Avaliações'
+                    : appointment.provider.rating
+                }
+                showNumber={true}
+                wd={18}
+                hg={18}
+              />
             </Info>
             <IconArea>
               <TouchableOpacity onPress={onOpen}>
@@ -162,6 +218,62 @@ export default function Details({route, navigation}) {
                 </ProductPrice>
               </ProductInfo>
             </ProductItem>
+            {appointment.past && (
+              <>
+                <RatingArea>
+                  {appointment.rating_appointment === 0 && !posConfirmRating ? (
+                    <Text
+                      style={{
+                        fontWeight: 'bold',
+                        fontSize: 18,
+                        color: '#268596',
+                      }}>
+                      {' '}
+                      Avalie!{' '}
+                    </Text>
+                  ) : (
+                    <View>
+                      <Text
+                        style={{
+                          fontWeight: 'bold',
+                          fontSize: 18,
+                          color: '#268596',
+                        }}>
+                        {' '}
+                        Sua Avaliação foi:{' '}
+                      </Text>
+                    </View>
+                  )}
+
+                  {appointment.past && (
+                    <AirbnbRating
+                      isDisabled={
+                        appointment.rating_appointment > 0 || posConfirmRating
+                          ? !disabled
+                          : disabled
+                      }
+                      count={5}
+                      reviews={[
+                        'Ruim',
+                        'Pode Melhorar',
+                        'OK',
+                        'Bom!',
+                        'Ótimo!',
+                      ]}
+                      defaultRating={appointment.rating_appointment}
+                      size={30}
+                      onFinishRating={rating => {
+                        setStars(rating);
+                        setShowAlert(true);
+                        setPosRating(true);
+                      }}
+                    />
+                  )}
+                </RatingArea>
+              </>
+            )}
+
+            {!appointment.past && <RatingArea />}
 
             <GroupButton style={{marginBottom: 10}}>
               <TouchableOpacity onPress={sendEmail}>

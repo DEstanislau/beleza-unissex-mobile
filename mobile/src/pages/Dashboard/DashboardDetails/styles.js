@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import Button from '~/components/Button';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
@@ -52,7 +53,7 @@ export const Info = styled.View`
 
 export const ProductArea = styled.View`
   flex: 1;
-  margin-top: 20px;
+  margin-top: 10px;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -68,7 +69,7 @@ export const ProductTitle = styled.Text`
 
 export const ProductItem = styled.View`
   flex-direction: row;
-  margin: 0px 30px 20px 30px;
+  /* margin: 0px 30px 20px 30px; */
 `;
 
 export const ProductInfo = styled.View`
@@ -82,7 +83,7 @@ export const ProductInfo = styled.View`
 `;
 
 export const ProductName = styled.Text`
-  font-size: 18px;
+  font-size: 17px;
   font-weight: bold;
   color: #ffffffff;
   border-bottom-width: 1px;
@@ -92,7 +93,7 @@ export const ProductName = styled.Text`
 `;
 
 export const ProductPrice = styled.Text`
-  font-size: 17px;
+  font-size: 16px;
   color: #ffffffff;
 `;
 
@@ -162,4 +163,19 @@ export const ModalTitle = styled.Text`
 export const ModalText = styled.Text`
   font-size: 14px;
   color: #268596;
+`;
+
+export const RatingArea = styled.View`
+  flex: 1;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+`;
+
+export const SubmitButton = styled(Button)`
+  background: #268596;
+  margin-bottom: 10px;
+  height: 25%;
+  width: 50%;
 `;

@@ -1,7 +1,6 @@
 import {takeLatest, call, put, all} from 'redux-saga/effects';
-import {Alert} from 'react-native';
 import api from '~/services/api';
-// import history from '~/services/history';
+
 import {signInSuccess, signFailure} from './actions';
 
 export function* signIn({payload}) {
@@ -15,20 +14,19 @@ export function* signIn({payload}) {
     const {token, user} = response.data;
 
     if (user.provider) {
-      Alert.alert(
-        'Erro no Login',
-        'Usuário não pode ser prestador de serviços',
-      );
+      toast.show('Usuário não pode ser prestador de serviços', {
+        type: 'warning',
+      });
+
       return;
     }
 
     api.defaults.headers.Authorization = `Baerer ${token}`;
 
     yield put(signInSuccess(token, user));
-
-    // history.push('/dashboard');
+    toast.show('Login Realizado com Sucesso!', {type: 'success'});
   } catch (err) {
-    Alert.alert('Falha na Autenticação', 'verifique seu email / senha');
+    toast.show('Verifique Email / Senha', {type: 'danger'});
     yield put(signFailure());
   }
 }
@@ -44,10 +42,9 @@ export function* signUp({payload}) {
       password,
     });
 
-    Alert.alert('Cadastro', 'Efetuado com Sucesso!');
-    // history.push('/');
+    toast.show('Cadastro Realizado com Sucesso!', {type: 'success'});
   } catch (err) {
-    Alert.alert('Falha', 'Verifique se seus dados já estão cadastrados');
+    toast.show('Cadastro não concluido', {type: 'danger'});
 
     yield put(signFailure());
   }
@@ -62,11 +59,11 @@ export function* resetPasswordRequest({payload}) {
       email,
     });
 
-    Alert.alert('Tudo Certo!', 'Instruções enviadas para seu email');
+    toast.show('Instruções enviadas para o email!', {type: 'success'});
 
     // history.push('/');
   } catch (err) {
-    Alert.alert('Falha na autenticação', 'Verifique seu email / CPF');
+    toast.show('Verifique CPF / Email', {type: 'danger'});
   }
 }
 

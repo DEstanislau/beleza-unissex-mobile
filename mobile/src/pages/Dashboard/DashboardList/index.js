@@ -7,7 +7,6 @@ import Background from '~/components/Background';
 import Appointment from '~/components/Appointment';
 
 import {Container, Title, List, Loading} from './styles';
-import {RectButton} from 'react-native-gesture-handler';
 
 export default function DashboardList() {
   const [appointments, setAppointments] = useState([]);
@@ -30,19 +29,24 @@ export default function DashboardList() {
   }, [isFocused]);
 
   async function handleCancel(id) {
-    const response = await api.delete(`appointments/${id}`);
+    try {
+      const response = await api.delete(`appointments/${id}`);
 
-    setAppointments(
-      appointments.map(appointment =>
-        appointment.id === id
-          ? {
-              ...appointment,
-              canceled_at: response.data.canceled_at,
-            }
-          : appointment,
-      ),
-    );
+      setAppointments(
+        appointments.map(appointment =>
+          appointment.id === id
+            ? {
+                ...appointment,
+                canceled_at: response.data.canceled_at,
+              }
+            : appointment,
+        ),
+      );
+    } catch (err) {
+      toast.show('Erro ao Cancelar Agendamento', {type: 'danger'});
+    }
 
+    toast.show('Agendamento Cancelado!', {type: 'success'});
     loadAppointments();
   }
 

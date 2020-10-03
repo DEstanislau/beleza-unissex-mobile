@@ -36,25 +36,32 @@ export default function Confirm({route, navigation}) {
   );
 
   async function handleNewAppointment() {
-    await api.post('appointments', {
-      provider_id: provider.id,
-      date: value,
-      product_id: product.id,
-    });
+    try {
+      await api.post('appointments', {
+        provider_id: provider.id,
+        date: value,
+        product_id: product.id,
+      });
 
-    navigation.dispatch(
-      CommonActions.reset({
-        index: 1,
-        routes: [
-          {
-            name: 'SelectProvider',
-          },
-        ],
-      }),
-    );
+      toast.show('Agendamento Concluido!', {type: 'success'});
+    } catch (err) {
+      return toast.show('Agendamento não concluído', {type: 'danger'});
+    } finally {
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 1,
+          routes: [
+            {
+              name: 'SelectProvider',
+            },
+          ],
+        }),
+      );
 
-    navigation.navigate('DashboardList');
+      navigation.navigate('Dashboard', {screen: 'DashboardList'});
+    }
   }
+
   return (
     <Background>
       <Container>

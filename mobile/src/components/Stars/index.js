@@ -6,7 +6,7 @@ import StarEmpty from '~/assets/img/star_empty.svg';
 
 import {StarArea, StarView, StarText} from './styles';
 
-export default ({stars, showNumber}) => {
+export default ({stars, showNumber, wd, hg}) => {
   let s = [0, 0, 0, 0, 0];
   let floor = Math.floor(stars);
   let left = stars - floor;
@@ -22,9 +22,9 @@ export default ({stars, showNumber}) => {
     <StarArea>
       {s.map((i, k) => (
         <StarView key={k}>
-          {i === 0 && <StarEmpty width="18" height="18" fill="#FF9200" />}
-          {i === 1 && <StarHalf width="18" height="18" fill="#FF9200" />}
-          {i === 2 && <StarFull width="18" height="18" fill="#FF9200" />}
+          {i === 0 && <StarEmpty width={wd} height={hg} fill="#FF9200" />}
+          {i === 1 && <StarHalf width={wd} height={hg} fill="#FF9200" />}
+          {i === 2 && <StarFull width={wd} height={hg} fill="#FF9200" />}
         </StarView>
       ))}
       {showNumber && <StarText>{stars}</StarText>}
