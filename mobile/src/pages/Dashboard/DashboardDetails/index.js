@@ -53,11 +53,12 @@ export default function DashboardDetails({route, navigation}) {
   const disabled = useSelector(state => state.user.disabled);
 
   const [stars, setStars] = useState(0);
-  const [posRating, setPosRating] = useState(false);
   const [posConfirmRating, setPosConfirmRating] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
 
   const modalizeRef = useRef(null);
+
+  useEffect(() => {}, []);
 
   const subject = 'App Barbearia';
 
@@ -192,6 +193,7 @@ export default function DashboardDetails({route, navigation}) {
                 hg={18}
               />
             </Info>
+
             <IconArea>
               <TouchableOpacity onPress={onOpen}>
                 <IconMaterial name="location-on" size={30} color="#F08080" />
@@ -265,7 +267,6 @@ export default function DashboardDetails({route, navigation}) {
                       onFinishRating={rating => {
                         setStars(rating);
                         setShowAlert(true);
-                        setPosRating(true);
                       }}
                     />
                   )}

@@ -136,13 +136,15 @@ export const GroupButton = styled.View`
 `;
 
 export const IconArea = styled.View`
-  height: 35px;
+  height: 40px;
+  width: 40px;
   background: #ffffff;
-  border-radius: 17px;
-  margin-top: -12px;
+  border-radius: 20px;
+  border: 2px solid #999999;
+  margin-top: -15px;
   margin-right: 5px;
-  border-color: #999999;
-  border-width: 1px;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ModalArea = styled.View`

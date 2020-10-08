@@ -15,9 +15,7 @@ import SignUp from '../pages/SignUp';
 import Reset from '../pages/Reset';
 
 import Home from '../pages/Home';
-// import Search from '../pages/Search';
 import Dashboard from '../pages/Dashboard';
-// import Favorites from '../pages/Favorites';
 import Profile from '../pages/Profile';
 
 import TabBar from '~/Routes/TabNavigation';
@@ -45,37 +43,14 @@ export default function Router() {
           <Stack.Screen name="Reset" component={Reset} />
         </Stack.Navigator>
       ) : (
-        <TabNav.Navigator
-          tabBar={props => <TabBar {...props} />}
-          tabBarOptions={{
-            keyboardHidesTabBar: false,
-          }}>
+        <TabNav.Navigator tabBar={props => <TabBar {...props} />}>
           <TabNav.Screen name={'Home'} component={Home} />
-          {/* <TabNav.Screen name={'Search'} component={Search} /> */}
+
           <TabNav.Screen name={'Dashboard'} component={Dashboard} />
-          {/* <TabNav.Screen name={'Favorites'} component={Favorites} /> */}
+
           <TabNav.Screen name={'Profile'} component={Profile} />
         </TabNav.Navigator>
       )}
     </NavigationContainer>
   );
 }
-
-// tabBarOptions={{
-//   keyboardHidesTabBar: true,
-//   activeTintColor: '#11969f',
-//   inactiveTintColor: 'rgba(17, 150, 159, 0.6)',
-//   activeBackgroundColor: '#fff',
-//   iconStyle: {
-//     backgroundColor: 'red',
-//   },
-//   tabStyle: {
-//     borderRadius: 100,
-//     height: 50,
-//     width: 50,
-//   },
-//   style: {
-//     borderTopColor: 'rgba(0, 0, 0, 0.1)',
-//     backgroundColor: '#32a5ac',
-//   },
-// }}

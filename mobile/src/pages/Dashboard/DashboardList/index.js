@@ -16,8 +16,9 @@ export default function DashboardList() {
 
   async function loadAppointments() {
     const response = await api.get('appointments');
-
-    setAppointments(response.data);
+    const aux = response.data;
+    const data = aux.sort((a, b) => b.past < a.past);
+    setAppointments(data);
     setLoading(false);
   }
 

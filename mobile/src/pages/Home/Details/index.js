@@ -15,6 +15,8 @@ import api from '~/services/api';
 
 import Icon from 'react-native-vector-icons/Feather';
 
+import {useIsFocused} from '@react-navigation/native';
+
 import {TouchableOpacity, View, Linking} from 'react-native';
 
 import {
@@ -43,6 +45,8 @@ import {
 export default function Details({route, navigation}) {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+
+  const isFocused = useIsFocused();
 
   const modalizeRef = useRef(null);
 
@@ -151,6 +155,7 @@ export default function Details({route, navigation}) {
                 hg={18}
               />
             </Info>
+
             <IconArea>
               <TouchableOpacity onPress={onOpen}>
                 <IconMaterial name="location-on" size={30} color="#F08080" />
@@ -186,13 +191,13 @@ export default function Details({route, navigation}) {
             />
             <GroupButton style={{marginBottom: 10}}>
               <TouchableOpacity onPress={sendEmail}>
-                <IconGmail height={80} width={150} />
+                <IconGmail height={65} width={150} />
               </TouchableOpacity>
               <TouchableOpacity onPress={phoneCall}>
-                <IconPhone height={80} width={150} />
+                <IconPhone height={65} width={150} />
               </TouchableOpacity>
               <TouchableOpacity onPress={sendWhatsapp}>
-                <IconWhats height={80} width={150} />
+                <IconWhats height={65} width={150} />
               </TouchableOpacity>
             </GroupButton>
           </ProductArea>

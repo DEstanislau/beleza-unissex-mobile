@@ -94,12 +94,6 @@ export default function SignUp({navigation}) {
     }
   }
 
-  function changePass() {
-    setDataPass1({
-      checkPass1: true,
-    });
-  }
-
   function updatePass() {
     setDataPass1({
       checkPass1: !dataPass1.checkPass1,
@@ -208,13 +202,12 @@ export default function SignUp({navigation}) {
               size={20}
             />
             <FormInput
-              secureTextEntry={dataPass1.checkPass1 ? true : false}
+              secureTextEntry={!dataPass1.checkPass1 ? true : false}
               placeholder="Insira sua Senha"
               autoCorrect={false}
               autoCapitalize="none"
               value={password}
               onChangeText={val => {
-                changePass(val);
                 setPassword(val);
               }}
               ref={passwordRef}
