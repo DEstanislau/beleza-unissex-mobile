@@ -32,13 +32,19 @@ export default function SignIn({navigation}) {
 
   const [email, setEmail] = useState('');
   const [identifier, setIdentifier] = useState('');
-
-  const loading = useSelector(state => state.auth.loading);
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleSubmit() {
-    dispatch(resetPassword(identifier, email));
-    setEmail('');
-    setIdentifier('');
+    setIsLoading(true);
+    try {
+      dispatch(resetPassword(identifier, email));
+      setEmail('');
+      setIdentifier('');
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const [dataEmail1, setDataEmail1] = useState({
@@ -142,7 +148,7 @@ export default function SignIn({navigation}) {
         <GroupButton>
           <ButtonSignUp onPress={handleSubmit}>
             <Linear>
-              {loading ? (
+              {isLoading ? (
                 <ActivityIndicator size="small" color="#fff" />
               ) : (
                 <Text style={{fontSize: 18, fontWeight: 'bold', color: '#fff'}}>

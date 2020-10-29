@@ -1,13 +1,13 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState} from 'react';
 
 import Background from '~/components/Background';
 import Icon from 'react-native-vector-icons/Feather';
 import {CommonActions} from '@react-navigation/native';
 
-import {formatRelative, parseISO, subHours} from 'date-fns';
+import {formatRelative, parseISO} from 'date-fns';
 import pt from 'date-fns/locale/pt';
 
-import {TouchableOpacity, View, Text} from 'react-native';
+import {TouchableOpacity, View, Text, ActivityIndicator} from 'react-native';
 import api from '~/services/api';
 
 import {
@@ -30,12 +30,15 @@ export default function Confirm({route, navigation}) {
   const {value} = route.params;
   const {product} = route.params;
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const timeFormatted = useMemo(
     () => formatRelative(parseISO(value), new Date(), {locale: pt}),
     [value],
   );
 
   async function handleNewAppointment() {
+    setIsLoading(true);
     try {
       await api.post('appointments', {
         provider_id: provider.id,
@@ -47,6 +50,7 @@ export default function Confirm({route, navigation}) {
     } catch (err) {
       return toast.show('Agendamento não concluído', {type: 'danger'});
     } finally {
+      setIsLoading(false);
       navigation.dispatch(
         CommonActions.reset({
           index: 1,
@@ -103,8 +107,8 @@ export default function Confirm({route, navigation}) {
           <Name>{provider.name}</Name>
           <Time>{timeFormatted}</Time>
 
-          <SubmitButton onPress={handleNewAppointment}>
-            Confirmar Agendamento
+          <SubmitButton loading={isLoading} onPress={handleNewAppointment}>
+            <Text> Confirmar Agendamento </Text>
           </SubmitButton>
         </Body>
       </Container>
