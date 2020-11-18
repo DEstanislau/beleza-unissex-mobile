@@ -60,7 +60,7 @@ export default function DashboardDetails({route, navigation}) {
 
   useEffect(() => {}, []);
 
-  const subject = 'App Barbearia';
+  const subject = 'App Beleza Unissex';
 
   const message = `Olá ${
     appointment.provider.name
@@ -175,9 +175,7 @@ export default function DashboardDetails({route, navigation}) {
               source={{
                 uri: appointment.provider.avatar
                   ? appointment.provider.avatar.url
-                  : `https://api.adorable.io/avatar/50/${
-                      appointment.provider.name
-                    }.png`,
+                  : `https://robohash.org/${appointment.provider.id}.png`,
               }}
             />
             <Info>

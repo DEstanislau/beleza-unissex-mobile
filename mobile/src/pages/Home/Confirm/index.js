@@ -101,7 +101,7 @@ export default function Confirm({route, navigation}) {
             source={{
               uri: provider.avatar.url
                 ? provider.avatar.url
-                : `https://api.adorable.io/avatar/50/${provider.name}.png`,
+                : `https://robohash.org/${provider.id}.png`,
             }}
           />
           <Name>{provider.name}</Name>

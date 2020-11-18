@@ -66,7 +66,7 @@ export default function Details({route, navigation}) {
     loadProducts();
   }, []);
 
-  const subject = 'App Barbearia';
+  const subject = 'App Beleza Unissex';
 
   const message = `Olá ${
     provider.name
@@ -141,7 +141,7 @@ export default function Details({route, navigation}) {
               source={{
                 uri: provider.avatar
                   ? provider.avatar.url
-                  : `https://api.adorable.io/avatar/50/${provider.name}.png`,
+                  : `https://robohash.org/${provider.id}.png`,
               }}
             />
             <Info>

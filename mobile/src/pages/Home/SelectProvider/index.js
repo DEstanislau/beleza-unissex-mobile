@@ -28,6 +28,7 @@ import {
 
 export default function SelectProvider({navigation}) {
   const [providers, setProviders] = useState([]);
+  const [products, setProducts] = useState([]);
   const [search, setSearch] = useState([]);
   const [loading, setLoading] = useState(false);
   const [pickerData, setPickerData] = useState(stateLocale.estados);
@@ -38,6 +39,11 @@ export default function SelectProvider({navigation}) {
     setProviders(response.data);
     setSearch(response.data);
     setLoading(false);
+  }
+
+  async function loadProducts() {
+    const response = await api.get('productsm');
+    setProducts(response.data);
   }
 
   function handleSearch(text) {
@@ -55,6 +61,7 @@ export default function SelectProvider({navigation}) {
   useEffect(() => {
     setLoading(true);
     loadProviders();
+    loadProducts();
   }, []);
 
   const onRefresh = () => {
@@ -116,6 +123,9 @@ export default function SelectProvider({navigation}) {
           {loading && <Loading size="large" color="#FFFFFF" />}
 
           <List
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
             data={search}
             keyExtractor={provider => String(provider.id)}
             renderItem={({item: provider}) => (
@@ -129,9 +139,7 @@ export default function SelectProvider({navigation}) {
                   source={{
                     uri: provider.avatar
                       ? provider.avatar.url
-                      : `https://api.adorable.io/avatar/50/${
-                          provider.name
-                        }.png`,
+                      : `https://robohash.org/${provider.id}.png`,
                   }}
                 />
 
