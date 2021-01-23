@@ -1,12 +1,8 @@
-⚡ This repository contains the mobile application for Beleza Unissex
-
-
-
-<img src="https://user-images.githubusercontent.com/43790190/105572127-00eac300-5d34-11eb-8a74-493077570bc1.png" width="300"><img src="https://user-images.githubusercontent.com/43790190/105572248-cafa0e80-5d34-11eb-9ceb-9de0179baa4a.png" width="300"><img src="https://user-images.githubusercontent.com/43790190/105572450-f5000080-5d35-11eb-8df5-6a01f0b9c95d.png" width="300">
+<img src="https://user-images.githubusercontent.com/43790190/105572127-00eac300-5d34-11eb-8a74-493077570bc1.png" width="300"><img src="https://user-images.githubusercontent.com/43790190/105572730-bbc89000-5d37-11eb-813b-36343cf01b67.png" width="300"><img src="https://user-images.githubusercontent.com/43790190/105572450-f5000080-5d35-11eb-8df5-6a01f0b9c95d.png" width="300">
 
 *  If you want to take a look on all screens of the App, they are [here](https://1drv.ms/u/s!Ar-3uFKc85pNgZ1H8_gZ8yYFIxG9mQ?e=UVnhf3).
   
-
+⚡ This repository contains the mobile application for Beleza Unissex
 
 ## Functionalities
 
